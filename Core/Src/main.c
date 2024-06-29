@@ -4,14 +4,6 @@
   * @file           : main.c
   * @brief          : Main program body
   ******************************************************************************
-  * @attention
-  *
-  * Copyright (c) 2024 STMicroelectronics.
-  * All rights reserved. 
-  *
-  * This software is licensed under terms that can be found in the LICENSE file
-  * in the root directory of this software component.
-  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -34,7 +26,7 @@
 /* USER CODE BEGIN PD */
 #define msgSIZE 100 // tamanho da string
 #define TIMEOUT_SERIAL 100
-#define MIN 60.0
+#define MIN 60.0 // segundos em 1min
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -43,9 +35,10 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
-TIM_HandleTypeDef htim2;
+TIM_HandleTypeDef htim4;
 TIM_HandleTypeDef htim5;
 TIM_HandleTypeDef htim10;
+
 UART_HandleTypeDef huart2;
 
 /* USER CODE BEGIN PV */
@@ -63,18 +56,14 @@ int RPM = 0; 															// Velocidade em Rotações Por Minuto
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
-static void MX_TIM2_Init(void);
 static void MX_TIM5_Init(void);
 static void MX_TIM10_Init(void);
 static void MX_USART2_UART_Init(void);
+static void MX_TIM4_Init(void);
 /* USER CODE BEGIN PFP */
 
-/* USER CODE END PFP
-void Preenche_DutyCicle(){
-	for(int y = 0; y < 41; y++){
-		DutyCicle_IN[y] = 300 + (10 * y);
-	}
-}*/
+/* USER CODE END PFP */
+
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
@@ -87,6 +76,7 @@ void Preenche_DutyCicle(){
   */
 int main(void)
 {
+
   /* USER CODE BEGIN 1 */
 	//Preenche_DutyCicle();
   /* USER CODE END 1 */
@@ -109,19 +99,19 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_TIM2_Init();
   MX_TIM5_Init();
   MX_TIM10_Init();
   MX_USART2_UART_Init();
+  MX_TIM4_Init();
   /* USER CODE BEGIN 2 */
   HAL_TIM_IC_Start_IT(&htim5, TIM_CHANNEL_2);   // INPUT CAPTURE
   HAL_TIM_Base_Start_IT(&htim10); 				// TIMER PARA ENVIAR AS MENSAGENS EM DETERMINADO TEMPO
-  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_2); 	// GERAÇÃO DE SINAL PWM
+  HAL_TIM_PWM_Start(&htim4, TIM_CHANNEL_1); 	// GERAÇÃO DE SINAL PWM
 
-  strncpy(msg, "MEDIDOR DE SINAIS \n\r", msgSIZE);
-  HAL_UART_Transmit(&huart2, msg, strlen(msg), TIMEOUT_SERIAL);
+  //strncpy(msg, "MEDIDOR DE SINAIS \n\r", msgSIZE);
+  //HAL_UART_Transmit(&huart2, msg, strlen(msg), TIMEOUT_SERIAL);
   HAL_UART_Receive_IT(&huart2, &ValSerial, 1);
-  __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_2, 500);
+  __HAL_TIM_SET_COMPARE(&htim4, TIM_CHANNEL_1, 500);
 
   /* USER CODE END 2 */
 
@@ -184,61 +174,61 @@ void SystemClock_Config(void)
 }
 
 /**
-  * @brief TIM2 Initialization Function
+  * @brief TIM4 Initialization Function
   * @param None
   * @retval None
   */
-static void MX_TIM2_Init(void)
+static void MX_TIM4_Init(void)
 {
 
-  /* USER CODE BEGIN TIM2_Init 0 */
+  /* USER CODE BEGIN TIM4_Init 0 */
 
-  /* USER CODE END TIM2_Init 0 */
+  /* USER CODE END TIM4_Init 0 */
 
   TIM_ClockConfigTypeDef sClockSourceConfig = {0};
   TIM_MasterConfigTypeDef sMasterConfig = {0};
   TIM_OC_InitTypeDef sConfigOC = {0};
 
-  /* USER CODE BEGIN TIM2_Init 1 */
+  /* USER CODE BEGIN TIM4_Init 1 */
 
-  /* USER CODE END TIM2_Init 1 */
-  htim2.Instance = TIM2;
-  htim2.Init.Prescaler = 839;
-  htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim2.Init.Period = 999;
-  htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
-  htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
-  if (HAL_TIM_Base_Init(&htim2) != HAL_OK)
+  /* USER CODE END TIM4_Init 1 */
+  htim4.Instance = TIM4;
+  htim4.Init.Prescaler = 839;
+  htim4.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim4.Init.Period = 999;
+  htim4.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  htim4.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  if (HAL_TIM_Base_Init(&htim4) != HAL_OK)
   {
     Error_Handler();
   }
   sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
-  if (HAL_TIM_ConfigClockSource(&htim2, &sClockSourceConfig) != HAL_OK)
+  if (HAL_TIM_ConfigClockSource(&htim4, &sClockSourceConfig) != HAL_OK)
   {
     Error_Handler();
   }
-  if (HAL_TIM_PWM_Init(&htim2) != HAL_OK)
+  if (HAL_TIM_PWM_Init(&htim4) != HAL_OK)
   {
     Error_Handler();
   }
   sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
   sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
-  if (HAL_TIMEx_MasterConfigSynchronization(&htim2, &sMasterConfig) != HAL_OK)
+  if (HAL_TIMEx_MasterConfigSynchronization(&htim4, &sMasterConfig) != HAL_OK)
   {
     Error_Handler();
   }
   sConfigOC.OCMode = TIM_OCMODE_PWM1;
-  sConfigOC.Pulse =  500;
+  sConfigOC.Pulse = 500;
   sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
   sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
-  if (HAL_TIM_PWM_ConfigChannel(&htim2, &sConfigOC, TIM_CHANNEL_2) != HAL_OK)
+  if (HAL_TIM_PWM_ConfigChannel(&htim4, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
   {
     Error_Handler();
   }
-  /* USER CODE BEGIN TIM2_Init 2 */
+  /* USER CODE BEGIN TIM4_Init 2 */
 
-  /* USER CODE END TIM2_Init 2 */
-  HAL_TIM_MspPostInit(&htim2);
+  /* USER CODE END TIM4_Init 2 */
+  HAL_TIM_MspPostInit(&htim4);
 
 }
 
@@ -289,7 +279,7 @@ static void MX_TIM5_Init(void)
   sConfigIC.ICPolarity = TIM_INPUTCHANNELPOLARITY_BOTHEDGE;
   sConfigIC.ICSelection = TIM_ICSELECTION_DIRECTTI;
   sConfigIC.ICPrescaler = TIM_ICPSC_DIV1;
-  sConfigIC.ICFilter = 0;
+  sConfigIC.ICFilter = 10;
   if (HAL_TIM_IC_ConfigChannel(&htim5, &sConfigIC, TIM_CHANNEL_2) != HAL_OK)
   {
     Error_Handler();
@@ -316,7 +306,7 @@ static void MX_TIM10_Init(void)
 
   /* USER CODE END TIM10_Init 1 */
   htim10.Instance = TIM10;
-  htim10.Init.Prescaler = 8399;
+  htim10.Init.Prescaler = 4199;
   htim10.Init.CounterMode = TIM_COUNTERMODE_UP;
   htim10.Init.Period = 9999;
   htim10.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
@@ -414,7 +404,7 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim){ 				 // IT do Input Ca
 		borda[atual] = __HAL_TIM_GET_COMPARE(htim, TIM_CHANNEL_2);  	 // pegando a borda atuual
 		periodo = borda[atual] - borda[subida];
 
-		double Periodo_Em_Segundos = periodo/1000000.0; 				 //nescessario para calcular a frequencia 1/s
+		float Periodo_Em_Segundos = periodo/1000000.0; 				     //nescessario para calcular a frequencia 1/s
 		frequencia = 1.00/Periodo_Em_Segundos; 							 //frequuencia em hz's
 
 		//Duty Cycle= T on / (T on +T off ) * 100
@@ -434,8 +424,14 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
 	if (htim->Instance==TIM10)
 	{
-		RPM = frequencia * MIN;
-		snprintf(msg, msgSIZE, "Periodo: %.2f us | Frequencia: %.2f | Dutycicle: %.2f%% | RPM = %i \r\n", periodo, frequencia, DutyCicle_OUT, RPM);
+		if(ValSerial == 0){
+			periodo = 0;
+			frequencia = 0;
+			DutyCicle_OUT = 0;
+		}
+		RPM = (frequencia * MIN)/2.0;
+		//Enviando a mensagem por JSON para conseguir filtrar as variaveis no cube monitor
+		snprintf(msg, msgSIZE, "{ \"periodo\": %.2f ,\"duty\": %.1f, \"frequencia\": %.2f, \"RPM\": %i } \n", periodo,DutyCicle_OUT, frequencia, RPM);
 		HAL_UART_Transmit(&huart2, msg, strlen(msg), TIMEOUT_SERIAL);
 	}
 }
@@ -449,9 +445,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
 	ValSerial = ValSerial-'0'; 											   // Tirando o 'offset' de char recebido pela serial
-	__HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_2, DutyCicle_IN[ValSerial]); // setando DT do PWM
-	snprintf(msg, msgSIZE, "recebido serial %i\r\n", ValSerial);
-	HAL_UART_Transmit(&huart2, msg, strlen(msg), TIMEOUT_SERIAL);
+	__HAL_TIM_SET_COMPARE(&htim4, TIM_CHANNEL_1, DutyCicle_IN[ValSerial]); // setando DT do PWM
 	HAL_UART_Receive_IT(&huart2, &ValSerial, 1);
 
 }
