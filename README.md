@@ -51,11 +51,11 @@
 
 ## Fotos and videos
 - Schematic of the circuit used:
-<img src="https://drive.google.com/open?id=1SQQfG4_GeRO-I5uIqY8L8PlTtmyEmV6i&usp=drive_copy" alt = "Schematic" width="50%" height="20%"/>
+<img src="https://github.com/vituzm/Tacometro/assets/134985122/ebb543b6-89d8-4111-a106-c851b85c0322" alt = "Schematic" width="50%" height="20%"/>
 
 &nbsp; 
 - IHM of the user and node red notation 
-<img src="![image](https://github.com/vituzm/Tacometro/assets/134985122/71b1c4b0-d80d-46f2-beae-b5a209930a1e)" alt = "IHM" width="80%" height="40%"/>
+<img src="https://github.com/vituzm/Tacometro/assets/134985122/71b1c4b0-d80d-46f2-beae-b5a209930a1e" alt = "IHM" width="80%" height="40%"/>
 
 ## Contact
 Created by [vituzm](https://github.com/vituzm) - feel free to contact!
