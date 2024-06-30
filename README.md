@@ -1,5 +1,5 @@
 # TACHOMETER
-> This project consists on a [tachometer](https://en.wikipedia.org/wiki/Tachometer). to measure the rotation speed of a 5V controled bushless [fan](https://netcomputadores.com.br/gs/hy60n05ap803--fan--sepa-dc-5v/39173?srsltid=AfmBOor2hONwDeeEb6BnhoTzcTBVaMVkfP5J6wRe7xtLnUkBQYk5WPlPrH8).
+> This project consists on a [tachometer](https://en.wikipedia.org/wiki/Tachometer) to measure the rotation speed of a 5V controled bushless [fan](https://netcomputadores.com.br/gs/hy60n05ap803--fan--sepa-dc-5v/39173?srsltid=AfmBOor2hONwDeeEb6BnhoTzcTBVaMVkfP5J6wRe7xtLnUkBQYk5WPlPrH8).
 
 ## Table of Contents
 * [General Info](#general-information)
@@ -34,8 +34,8 @@
 - C programminng language
 - JavaScript Object Notation (JSON)
 - Serial ports for communication 
-- [Cube IDE](https://www.st.com/en/development-tools/stm32cubeide.html).
-- [Cube Monitor](https://www.st.com/en/development-tools/stm32cubemonitor.html). as IHM
+- [Cube IDE](https://www.st.com/en/development-tools/stm32cubeide.html)
+- [Cube Monitor](https://www.st.com/en/development-tools/stm32cubemonitor.html) as IHM
 - PWM signal generation and control through serial port
 - Input capture of the 446RE microcontroller
 
