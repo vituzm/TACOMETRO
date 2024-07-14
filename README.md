@@ -57,6 +57,11 @@
 - IHM of the user and node red notation 
 <img src="https://github.com/vituzm/Tacometro/assets/134985122/71b1c4b0-d80d-46f2-beae-b5a209930a1e" alt = "IHM" width="80%" height="40%"/>
 
-[![How It Works]()](https://www.youtube.com/embed/lcBYFT1z83I?si=zYlufDy9PFzsSqjW)
+&nbsp; 
+- Video
+<video width="320" height="240" controls>
+  <source src="https://www.youtube.com/embed/lcBYFT1z83I?si=zYlufDy9PFzsSqjW" type="video/mp4">
+</video>
+
 ## Contact
 Created by [vituzm](https://github.com/vituzm) - feel free to contact!
