@@ -59,7 +59,7 @@
 
 &nbsp; 
 - Video
-<a href="https://www.youtube.com/watch?v=lcBYFT1z83I&t=7s" target="_blank">
+<a href="https://www.youtube.com/watch?v=lcBYFT1z83I&t=1s" target="_blank">
   <img src="https://img.youtube.com/vi/lcBYFT1z83I/0.jpg" alt="Video" width="80%" height="40%">
 </a>
 
