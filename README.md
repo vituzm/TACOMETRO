@@ -59,6 +59,9 @@
 
 &nbsp; 
 - Video
-[![Watch the video](https://img.youtube.com/vi/lcBYFT1z83I/0.jpg)](https://www.youtube.com/watch?v=lcBYFT1z83I&t)
+<a href="https://www.youtube.com/watch?v=lcBYFT1z83I&t=7s" target="_blank">
+  <img src="https://img.youtube.com/vi/lcBYFT1z83I/0.jpg" alt="Video" width="80%" height="40%">
+</a>
+
 ## Contact
 Created by [vituzm](https://github.com/vituzm) - feel free to contact!
