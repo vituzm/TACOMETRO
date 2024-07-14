@@ -59,9 +59,7 @@
 
 &nbsp; 
 - Video
-<video width="320" height="240" controls>
-  <source src="https://www.youtube.com/embed/lcBYFT1z83I?si=zYlufDy9PFzsSqjW" type="video/mp4">
-</video>
+[![Watch the video](https://img.youtube.com/vi/lcBYFT1z83I/0.jpg)](https://www.youtube.com/watch?v=lcBYFT1z83I&t=7s)
 
 ## Contact
 Created by [vituzm](https://github.com/vituzm) - feel free to contact!
