@@ -59,7 +59,6 @@
 
 &nbsp; 
 - Video
-[![Watch the video](https://img.youtube.com/vi/lcBYFT1z83I/0.jpg)](https://www.youtube.com/watch?v=lcBYFT1z83I&t=7s)
-
+[![Watch the video](https://img.youtube.com/vi/lcBYFT1z83I/0.jpg)](https://www.youtube.com/watch?v=lcBYFT1z83I&t)
 ## Contact
 Created by [vituzm](https://github.com/vituzm) - feel free to contact!
